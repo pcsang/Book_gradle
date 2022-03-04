@@ -27,6 +27,12 @@ public class BookController {
         return bookService.getABookId(idBook);
     }
 
+    @GetMapping(path = "/test")
+    public List<Book> getBookAuthorAndCategory(@RequestParam(required = false) String author,
+                                               @RequestParam(required = false) String category){
+        return bookService.getBookAuthor_Category(author, category);
+    }
+
     @PostMapping
     public void registerNewBook(@RequestBody Book book){
         bookService.addNewBook(book);
@@ -37,7 +43,7 @@ public class BookController {
         bookService.deleteBook(idBook);
     }
 
-    @PutMapping(path = "{idBook}")
+    @PutMapping(path = "/{idBook}")
     public void updateBook(@PathVariable("idBook") int idBook,
                            @RequestParam(required = false) String name,
                            @RequestParam(required = false) String author){
