@@ -1,11 +1,14 @@
 package com.example.demoBook.book;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table
 public class Book {
+
 
     @Id
     @SequenceGenerator(
@@ -22,7 +25,10 @@ public class Book {
     private String author;
     private String category;
     private String desciption;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate updateDate;
 
     public Book(int id, String name, String author, String category, String desciption, LocalDate createDate, LocalDate updateDate) {
