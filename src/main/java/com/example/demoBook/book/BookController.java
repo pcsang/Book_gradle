@@ -1,5 +1,6 @@
 package com.example.demoBook.book;
 
+import com.example.demoBook.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class BookController {
 
     @GetMapping
     public List<Book> getBook(){
-        return bookService.getBook();
+        return bookService.getBooks();
     }
 
     @GetMapping(path = "/{idBook}")
@@ -47,7 +48,7 @@ public class BookController {
     public void updateBook(@PathVariable("idBook") int idBook,
                            @RequestParam(required = false) String name,
                            @RequestParam(required = false) String author){
-        bookService.updateBooks(idBook, name, author);
+        bookService.updateBook(idBook, name, author);
     }
 }
 
