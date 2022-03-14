@@ -100,6 +100,13 @@ class BookServiceTest {
     }
 
     @Test
+    void getBookByIdTest_IllegalStateException(){
+        assertThatThrownBy(()->bookService.getABookId(1))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("Book with id " + 1 +" does not exist.");
+    }
+
+    @Test
     void getBookAuthor_Category() {
         Book book1 = new Book(1, "The war", "phamsang",
                 "Khoahoc", "quan su", LocalDate.of(2010, 05, 12),
