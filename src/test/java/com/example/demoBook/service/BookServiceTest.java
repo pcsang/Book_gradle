@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -76,6 +77,12 @@ class BookServiceTest {
         given(bookRepository.findById(1)).willReturn(Optional.of(book));
         when(bookService.updateBook(1,"The war 2", "pham chi sang")).thenReturn(book);
         assertThat(bookRepository.save(book)).isEqualTo(bookService.updateBook(1,"The war 2", "pham chi sang"));
+    }
+
+    @Test
+    void updateBookIllegalStateException(){
+        assertAll(()->Optional.ofNullable(bookRepository.findById(1))
+                .orElseThrow(()-> new IllegalStateException("Book with id " +1+ " does not exists")));
     }
 
     @Test
