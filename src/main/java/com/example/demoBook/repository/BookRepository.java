@@ -11,5 +11,4 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query("SELECT b FROM Book b WHERE b.author LIKE ?1 AND b.category LIKE ?2")
     List<Book> findBookAuthorAndCategory(String author, String category);
-
 }
