@@ -1,20 +1,20 @@
 package com.example.demoBook.configuration;
 
-import com.example.demoBook.book.Book;
-import com.example.demoBook.repository.BookRepository;
+import java.time.LocalDate;
+import java.time.Month;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.time.LocalDate;
-import java.time.Month;
-
+import com.example.demoBook.book.Book;
+import com.example.demoBook.repository.BookRepository;
 
 @Configuration
 public class BookConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(BookRepository repository){
+    CommandLineRunner commandLineRunner(BookRepository repository) {
         return args -> {
             Book khoahoc = new Book(1,"10 van cau hoi vi sao?","PhamSang",
                     "Khoahoc",

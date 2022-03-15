@@ -1,7 +1,14 @@
 package com.example.demoBook.controller;
 
-import com.example.demoBook.book.Book;
-import com.example.demoBook.service.BookService;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import com.example.demoBook.book.Book;
+import com.example.demoBook.service.BookService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,12 +34,12 @@ class BookControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void shouldCreateMockMvc(){
+    public void shouldCreateMockMvc() {
         assertNotNull(mockMvc);
     }
 
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    String urlAPI = "/api/v1/books";
+    String urlApi = "/api/v1/books";
 
     @Test
     void getBooks() throws Exception {
@@ -53,7 +54,7 @@ class BookControllerTest {
         LocalDate dateCreate = LocalDate.of(2010, 05, 12);
         LocalDate dateUpdate = LocalDate.of(2015, 05, 15);
 
-        this.mockMvc.perform(MockMvcRequestBuilders.get(urlAPI))
+        this.mockMvc.perform(MockMvcRequestBuilders.get(urlApi))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(2))
@@ -61,8 +62,10 @@ class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].author").value("phamsang"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].category").value("Khoahoc"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].desciption").value("quan su"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].createDate").value(dateTimeFormatter.format(dateCreate)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].updateDate").value(dateTimeFormatter.format(dateUpdate)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].createDate")
+                        .value(dateTimeFormatter.format(dateCreate)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].updateDate")
+                        .value(dateTimeFormatter.format(dateUpdate)));
     }
 
     @Test
@@ -83,8 +86,10 @@ class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.author").value("phamsang"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.category").value("Khoahoc"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.desciption").value("quan su"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.createDate").value(dateTimeFormatter.format(dateCreate)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.updateDate").value(dateTimeFormatter.format(dateUpdate)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.createDate")
+                        .value(dateTimeFormatter.format(dateCreate)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.updateDate")
+                        .value(dateTimeFormatter.format(dateUpdate)));
     }
 
     @Test
@@ -112,16 +117,20 @@ class BookControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].author").value("PhamSang"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].category").value("Khoahoc"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].desciption").value("quan su"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].createDate").value(dateTimeFormatter.format(dateCreate)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].updateDate").value(dateTimeFormatter.format(dateUpdate)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].createDate")
+                        .value(dateTimeFormatter.format(dateCreate)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].updateDate")
+                        .value(dateTimeFormatter.format(dateUpdate)));
     }
 
     @Test
     void registerNewBook() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.post(urlAPI)
+        this.mockMvc.perform(MockMvcRequestBuilders.post(urlApi)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content("{\"id\":\"4\",\"author\":\"pcsang\", \"category\":\"lich su\", \"name\":\"sach giao khoa lich su 12\"," +
-                                "\"desciption\":\"sach gianh cho hoc sinh THPT\",\"createDate\":\"2010-05-12\",\"updateDate\":\"2015-01-18\"}")
+                        .content("{\"id\":\"4\",\"author\":\"pcsang\", \"category\":\"lich su\""
+                                +", \"name\":\"sach giao khoa lich su 12\""
+                                +", \"desciption\":\"sach gianh cho hoc sinh THPT\",\"createDate\":\"2010-05-12\""
+                                +", \"updateDate\":\"2015-01-18\"}")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
     }
@@ -138,8 +147,10 @@ class BookControllerTest {
                         .param("name", "Sach tham khao thi TOIEC")
                         .param("author", "pham chi sang")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content("{\"id\":\"4\",\"author\":\"pham chi sang\", \"category\":\"lich su\", \"name\":\"Sach tham khao thi TOIEC\"," +
-                                "\"desciption\":\"sach gianh cho hoc sinh THPT\",\"createDate\":\"2010-05-12\",\"updateDate\":\"2015-01-18\"}")
+                        .content("{\"id\":\"4\",\"author\":\"pham chi sang\", \"category\":\"lich su\""
+                                +", \"name\":\"Sach tham khao thi TOIEC\""
+                                +", \"desciption\":\"sach gianh cho hoc sinh THPT\",\"createDate\":\"2010-05-12\""
+                                +", \"updateDate\":\"2015-01-18\"}")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }

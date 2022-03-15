@@ -1,16 +1,18 @@
 package com.example.demoBook.bookTest;
 
-import com.example.demoBook.book.Book;
+import java.time.LocalDate;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import com.example.demoBook.book.Book;
 
 class BookTest {
     Book book =  new Book(2, "The war", "phamsang",
             "Khoahoc", "quan su",
             LocalDate.of(2010,05,12),
             LocalDate.of(2015,05,15));
+
     @Test
     void getId() {
         Assert.assertEquals(book.getId(), 2);
@@ -98,21 +100,19 @@ class BookTest {
 
     @Test
     void toStringTest() {
-        String bookString = "Book{" +
-                "id=" + 2 +
-                ", name='" + "The war" + '\'' +
-                ", author='" + "phamsang" + '\'' +
-                ", category='" + "Khoahoc" + '\'' +
-                ", desciption='" + "quan su" + '\'' +
-                ", createDate=" + "2010-05-12" +
-                ", updateDate=" + "2015-05-15" +
-                '}';
-
+        String bookString = "Book{"
+                + "id=" + 2
+                + ", name='" + "The war" + '\''
+                + ", author='" + "phamsang" + '\''
+                + ", category='" + "Khoahoc" + '\''
+                + ", desciption='" + "quan su" + '\''
+                + ", createDate=" + "2010-05-12"
+                + ", updateDate=" + "2015-05-15" + '}';
         Assert.assertEquals(bookString, book.toString());
     }
 
     @Test
-    void bookTestNoID(){
+    void bookTestNoId() {
         Book book1 = new Book("Sach thi TOEIC", "PCsang", "On thi", "danh cho nhung ai cos nhu cau thi TOEIC",
                 LocalDate.of(2010,10,15),LocalDate.of(2019,10,10));
         Book book2 = new Book(1,"Sach thi TOEIC", "PCsang", "On thi", "danh cho nhung ai cos nhu cau thi TOEIC",
