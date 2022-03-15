@@ -5,9 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -15,16 +15,13 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 @EnableWebMvc
 public class SpringFoxConfig extends WebMvcConfigurerAdapter {
-    @Bean
+    @Bean //Spring IoC container
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-//                .apis(RequestHandlerSelectors.basePackage("com.example.demobook"))
-//                .paths(PathSelectors.regex("/api/v1/.*"))
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
-                //.apiInfo(new ApiInfo("title", "decription", "version", "", "", "", ""));
     }
 
     @Override

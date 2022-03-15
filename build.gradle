@@ -69,6 +69,16 @@ jacocoTestReport {
 	}
 }
 
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.9
+			}
+		}
+	}
+}
+
 checkstyle {
 	toolVersion = "7.8.1"
 	config = rootProject.resources.text.fromFile("config/checkstyle/checkstyle.xml")

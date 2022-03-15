@@ -1,9 +1,11 @@
 package com.example.demoBook.book;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import javax.persistence.*;
 import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table
@@ -14,13 +16,13 @@ public class Book {
     private String author;
     private String category;
     private String desciption;
-
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate createDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate updateDate;
 
-    public Book(int id, String name, String author, String category, String desciption, LocalDate createDate, LocalDate updateDate) {
+    public Book(int id, String name, String author, String category, String desciption,
+                LocalDate createDate, LocalDate updateDate) {
         this.id = id;
         this.name = name;
         this.author = author;
@@ -30,7 +32,8 @@ public class Book {
         this.updateDate = updateDate;
     }
 
-    public Book(String name, String author, String category, String desciption, LocalDate createDate, LocalDate updateDate) {
+    public Book(String name, String author, String category, String desciption,
+                LocalDate createDate, LocalDate updateDate) {
         this.name = name;
         this.author = author;
         this.category = category;
@@ -99,14 +102,13 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", author='" + author + '\'' +
-                ", category='" + category + '\'' +
-                ", desciption='" + desciption + '\'' +
-                ", createDate=" + createDate +
-                ", updateDate=" + updateDate +
-                '}';
+        return "Book{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", author='" + author + '\''
+                + ", category='" + category + '\''
+                + ", desciption='" + desciption + '\''
+                + ", createDate=" + createDate
+                + ", updateDate=" + updateDate + '}';
     }
 }
