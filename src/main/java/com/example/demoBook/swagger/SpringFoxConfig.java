@@ -15,7 +15,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 @EnableWebMvc
 public class SpringFoxConfig extends WebMvcConfigurerAdapter {
-    @Bean //Spring IoC container
+
+    @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
