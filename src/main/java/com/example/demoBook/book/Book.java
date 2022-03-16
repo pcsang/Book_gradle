@@ -21,23 +21,23 @@ public class Book {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate updateDate;
 
-    public Book(int id, String name, String author, String category, String desciption,
+    public Book(int id, String name, String author, String category, String description,
                 LocalDate createDate, LocalDate updateDate) {
         this.id = id;
         this.name = name;
         this.author = author;
         this.category = category;
-        this.desciption = desciption;
+        this.desciption = description;
         this.createDate = createDate;
         this.updateDate = updateDate;
     }
 
-    public Book(String name, String author, String category, String desciption,
+    public Book(String name, String author, String category, String description,
                 LocalDate createDate, LocalDate updateDate) {
         this.name = name;
         this.author = author;
         this.category = category;
-        this.desciption = desciption;
+        this.desciption = description;
         this.createDate = createDate;
         this.updateDate = updateDate;
     }
