@@ -34,7 +34,7 @@ dependencies {
 	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 
-	//Testing
+				//Testing
 	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
 	testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.0.3'
 
@@ -50,7 +50,9 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.h2database/h2
 	testImplementation group: 'com.h2database', name: 'h2', version: '2.1.210'
 
-
+				//Liquibase
+	// https://mvnrepository.com/artifact/org.liquibase/liquibase-core
+	implementation group: 'org.liquibase', name: 'liquibase-core', version: '4.9.0'
 
 }
 
