@@ -1,8 +1,12 @@
 spring:
   datasource:
+#  liquibase:
     url: ${URL}
     username: ${USERNAME}
     password: ${PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+#    change-log: classpath:/db/changelog/changes/v0001.sql
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -14,3 +18,4 @@ spring:
 server:
   error:
     include-message: always
+

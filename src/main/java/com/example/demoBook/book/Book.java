@@ -6,10 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
+@Data
 @Entity
 @Table
-public class Book {
+public class Book{
+
     @Id
     private int id;
     private String name;
