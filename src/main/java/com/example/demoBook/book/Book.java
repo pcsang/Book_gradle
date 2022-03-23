@@ -1,6 +1,7 @@
 package com.example.demoBook.book;
 
 import java.time.LocalDate;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -20,8 +21,10 @@ public class Book{
     private String category;
     private String desciption;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "create_Date")
     private LocalDate createDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "update_Date")
     private LocalDate updateDate;
 
     public Book(int id, String name, String author, String category, String description,

@@ -5,10 +5,6 @@ import java.util.Objects;
 import java.util.Optional;
 import javax.transaction.Transactional;
 
-import org.jooq.Record;
-import org.jooq.Table;
-import org.jooq.impl.DefaultDSLContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,20 +17,12 @@ public class BookService {
     private final BookRepository bookRepository;
 
     @Autowired
-    private DefaultDSLContext dsl;
-    private Table<? extends Record> Book;
-
-    @Autowired
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
     public List<Book> getBooks() {
         return bookRepository.findAll();
-//        List<Book> books = dsl.select().from("book")
-//                .fetchInto(Book.class);
-//        List<Book> books = dsl.selectFrom(Book).fetchInto(Book.class);
-//        return books;
     }
 
     public void addNewBook(Book book) {

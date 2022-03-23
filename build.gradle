@@ -4,7 +4,6 @@ plugins {
 	id 'java'
 	id 'jacoco'
 	id 'checkstyle'
-//	id 'nu.studer.jooq' version '7.1.1'
 }
 
 group = 'com.example'
@@ -23,7 +22,6 @@ dependencies {
 	implementation 'org.wso2.appserver:wso2appserver-samples-tomcat-webapps-jdbc-data-source:5.3.0'
 	implementation 'org.projectlombok:lombok:1.18.20'
 	runtimeOnly 'org.postgresql:postgresql'
-//	implementation "org.springframework.boot:spring-boot-starter-jooq:2.0.2.RELEASE"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 //	//authentication security
@@ -52,22 +50,13 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path-assert
 	testImplementation group: 'com.jayway.jsonpath', name: 'json-path-assert', version: '2.2.0'
 
-	// https://mvnrepository.com/artifact/com.h2database/h2
 	testImplementation group: 'com.h2database', name: 'h2', version: '2.1.210'
 
 				//Liquibase
-	// https://mvnrepository.com/artifact/org.liquibase/liquibase-core
 	implementation group: 'org.liquibase', name: 'liquibase-core', version: '4.9.0'
 
 				//JOOQ
-	// https://mvnrepository.com/artifact/org.jooq/jooq
-	implementation group: 'org.jooq', name: 'jooq', version: '3.2.7'
-
-//	implementation group: 'org.jooq', name: 'jooq-codegen-maven', version: '3.16.5'
-//	// https://mvnrepository.com/artifact/org.springframework/spring-context
-//	implementation group: 'org.springframework', name: 'spring-context', version: '5.2.2.RELEASE'
-//	// https://mvnrepository.com/artifact/org.springframework/spring-jdbc
-//	implementation group: 'org.springframework', name: 'spring-jdbc', version: '5.2.2.RELEASE'
+	implementation group: 'org.jooq', name: 'jooq', version: '3.13.6'
 
 }
 
@@ -114,41 +103,3 @@ checkstyleTest {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-
-//jooq {
-//	version = '3.16.4'  // the default (can be omitted)
-//	edition = nu.studer.gradle.jooq.JooqEdition.OSS  // the default (can be omitted)
-//
-//	configurations {
-//		main {  // name of the jOOQ configuration
-//			generateSchemaSourceOnCompilation = true  // default (can be omitted)
-//
-//			generationTool {
-//				jdbc {
-//					driver = 'org.postgresql.Driver'
-//					url = 'jdbc:postgresql://localhost:5432/book_db'
-//					user = 'postgres'
-//					password = '123456'
-//					properties {
-//						property {
-//							key = 'ssl'
-//							value = 'true'
-//						}
-//					}
-//				}
-//				generator {
-////					name = 'org.jooq.codegen.DefaultGenerator'
-////					database {
-////						name = 'org.jooq.meta.postgres.PostgresDatabase'
-////						inputSchema = 'public'
-////					}
-////					target {
-////						packageName = 'com.example.demoBook.jooq'
-////						directory = 'src/main/java'  // default (can be omitted)
-////					}
-//					strategy.name = 'org.jooq.codegen.DefaultGeneratorStrategy'
-//				}
-//			}
-//		}
-//	}
-//}

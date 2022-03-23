@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - preConditions:
+      - runningAs:
+          username: liquibase
+
+  - changeSet:
+      id: 1
+      author: pcsang
+      changes:
+        - createTable:
+            tableName: book
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category
+                  type: varchar(255)
+              - column:
+                  name: desciptoin
+                  type: varchar(500)
+              - column:
+                  name: create_date
+                  type: date
+              - column:
+                  name: update_date
+                  type: date

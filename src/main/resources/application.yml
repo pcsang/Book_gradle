@@ -1,15 +1,17 @@
 spring:
   datasource:
-#  liquibase:
     url: ${URL}
     username: ${USERNAME}
     password: ${PASSWORD}
     driver-class-name: org.postgresql.Driver
-
-#    change-log: classpath:/db/changelog/changes/v0001.sql
+  jooq:
+    sql-dialect: POSTGRES
+  liquibase:
+    enabled: false
+#    change-log: classpath:db/changelog/db.changelog-master.yaml
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
