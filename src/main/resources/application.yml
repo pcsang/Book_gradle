@@ -7,7 +7,7 @@ spring:
   jooq:
     sql-dialect: POSTGRES
   liquibase:
-    enabled: false
+    enabled: true
 #    change-log: classpath:db/changelog/db.changelog-master.yaml
   jpa:
     hibernate:
