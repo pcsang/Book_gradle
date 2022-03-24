@@ -20,11 +20,13 @@ public class Book{
     private String author;
     private String category;
     private String desciption;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+
     @Column(name = "create_Date")
-    private LocalDate createDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createDate;
+
     @Column(name = "update_Date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate updateDate;
 
     public Book(int id, String name, String author, String category, String description,
