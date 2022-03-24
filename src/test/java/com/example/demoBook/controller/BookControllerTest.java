@@ -74,8 +74,8 @@ class BookControllerTest {
                 "Khoahoc", "quan su",
                 LocalDate.of(2010,05,12),
                 LocalDate.of(2015,05,15));
-//        when(bookService.getABookId(1)).thenReturn(Optional.of(book));
-//
+        when(bookService.getABookId(1)).thenReturn(Optional.of(book));
+
         LocalDate dateCreate = LocalDate.of(2010,05,12);
         LocalDate dateUpdate = LocalDate.of(2015,05,15);
 

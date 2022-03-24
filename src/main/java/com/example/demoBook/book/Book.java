@@ -16,9 +16,13 @@ public class Book{
 
     @Id
     private int id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "author")
     private String author;
+    @Column(name = "category")
     private String category;
+    @Column(name = "desciption")
     private String desciption;
 
     @Column(name = "create_Date")
