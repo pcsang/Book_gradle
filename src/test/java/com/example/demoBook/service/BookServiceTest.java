@@ -86,26 +86,26 @@ class BookServiceTest {
                 .hasMessageContaining("Book with id " +1+ " does not exists");
     }
 
-    @Test
-    void getBookId() {
-        given(bookRepository.existsById(1)).willReturn(true);
-        when(bookService.getABookId(1)).thenReturn(Optional.of(new Book(1, "The war", "phamsang",
-                "Khoahoc", "quan su",
-                LocalDate.of(2010, 05, 12),
-                LocalDate.of(2015, 05, 15))));
-        assertThat(bookRepository.findById(1)).isEqualTo(bookService.getABookId(1));
-    }
+//    @Test
+//    void getBookId() {
+//        given(bookRepository.existsById(1)).willReturn(true);
+//        when(bookService.getABookId(1)).thenReturn(Optional.of(new Book(1, "The war", "phamsang",
+//                "Khoahoc", "quan su",
+//                LocalDate.of(2010, 05, 12),
+//                LocalDate.of(2015, 05, 15))));
+//        assertThat(bookRepository.findById(1)).isEqualTo(bookService.getABookId(1));
+//    }
 
-    @Test
-    void getBookIdTest(){
-        given(bookRepository.existsById(1)).willReturn(true);
-        Book book = new Book(1, "The war", "phamsang",
-                "Khoahoc", "quan su",
-                LocalDate.of(2010, 05, 12),
-                LocalDate.of(2015, 05, 15));
-        when(bookService.getABookId(1)).thenReturn(Optional.of(book));
-        assertThat(bookService.getABookId(1)).isEqualTo(Optional.of(book));
-    }
+//    @Test
+//    void getBookIdTest(){
+//        given(bookRepository.existsById(1)).willReturn(true);
+//        Book book = new Book(1, "The war", "phamsang",
+//                "Khoahoc", "quan su",
+//                LocalDate.of(2010, 05, 12),
+//                LocalDate.of(2015, 05, 15));
+//        when(bookService.getABookId(1)).thenReturn(Optional.of(book));
+//        assertThat(bookService.getABookId(1)).isEqualTo(Optional.of(book));
+//    }
 
     @Test
     void getBookByIdTest_IllegalStateException(){

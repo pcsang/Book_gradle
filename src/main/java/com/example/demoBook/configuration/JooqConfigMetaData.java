@@ -97,7 +97,7 @@ public class JooqConfigMetaData {
 
     Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("spring.jpa.hibernate.ddl-auto", "update");
+        properties.setProperty("spring.jpa.hibernate.ddl-auto", "create-drop");
         properties.setProperty("spring.jpa.properties.hibernate.dialect", "org.hibernate.dialect.PostgreSQL81Dialect");
 
         return properties;

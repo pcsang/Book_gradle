@@ -34,7 +34,7 @@ public class BookController {
     }
 
     @GetMapping(path = "/{idBook}")
-    public Optional<Book> getABook(@PathVariable("idBook") int idBook) {
+    public Book getABook(@PathVariable("idBook") int idBook) {
         return bookService.getABookId(idBook);
     }
 

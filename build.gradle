@@ -49,7 +49,6 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path-assert
 	testImplementation group: 'com.jayway.jsonpath', name: 'json-path-assert', version: '2.2.0'
-
 	testImplementation group: 'com.h2database', name: 'h2', version: '2.1.210'
 
 				//Liquibase
