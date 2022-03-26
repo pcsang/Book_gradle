@@ -19,18 +19,16 @@ public class BookServiceJooq {
     @Autowired
     DSLContext dslContext;
 
-    Table BOOK = table("book");
-
     public List<Book> getBooks() {
         List<Book> books = dslContext.
                 select()
-                .from(BOOK)
+                .from("book")
                 .fetchInto(Book.class);
         return books;
     }
 
     public void addNewBook(Book book) {
-        dslContext.insertInto(BOOK)
+        dslContext.insertInto(table("book"))
                 .set(field("id"),book.getId())
                 .set(field("name"), book.getName())
                 .set(field("author"), book.getAuthor())
@@ -41,10 +39,9 @@ public class BookServiceJooq {
                 .execute();
     }
 
-
     public void deleteBook(int id) {
         String messenger = "Book with id "+id+" does not exists";
-        int result = dslContext.delete(BOOK).where(field("id").eq(id)).execute();
+        int result = dslContext.delete(table("book")).where(field("id").eq(id)).execute();
         if(result==0){
             throw new IllegalStateException(messenger);
         }
@@ -52,25 +49,21 @@ public class BookServiceJooq {
 
     @Transactional
     public Book updateBook(int idBook, String name, String author) {
-        int execute = dslContext.update(table("book")).set(field("name"), name).set(field("author"), author)
+        dslContext.update(table("book"))
+                .set(field("name"), name)
+                .set(field("author"), author)
                 .where(field("id").eq(idBook))
                 .execute();
-        Book book;
-        if (execute == 0) {
-            throw new IllegalStateException("Book with id " + idBook + " does not exists");
-        } else {
-            book = (Book) dslContext.selectFrom(BOOK).where(field("id").eq(idBook)).fetchOneInto(Book.class);
-            return book;
-        }
+        return dslContext.selectFrom("book").where(field("id").eq(idBook)).fetchOneInto(Book.class);
     }
 
     public Book getABookId(int idBook) {
-        Book book = (Book) dslContext.selectFrom(BOOK).where(field("id").eq(idBook)).fetchOneInto(Book.class);
+        Book book = (Book) dslContext.selectFrom("book").where(field("id").eq(idBook)).fetchOneInto(Book.class);
         return book;
     }
 
     public List<Book> getBookAuthor_Category(String author, String category) {
-        List<Book> books =  dslContext.select().from(BOOK)
+        List<Book> books =  dslContext.select().from("book")
                 .where(field("author").equal(author))
                 .and(field("category").equal(category))
                 .fetchInto(Book.class);

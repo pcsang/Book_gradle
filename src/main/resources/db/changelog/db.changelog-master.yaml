@@ -1,5 +1,10 @@
 databaseChangeLog:
+#  - include:
+#      file: /db/changelog/changes/createTableV001.yaml
+  - include:
+       file: /db/changelog/changes/tables.sql
   - include:
       file: /db/changelog/changes/insertBook.sql
-#  - include:
-#      file: /db/changelog/changes/tables.sql
+  - include:
+      file: /db/changelog/changes/insertBook2.sql
+
