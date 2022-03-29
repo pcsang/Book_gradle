@@ -63,7 +63,6 @@ public class BookController {
                            @RequestParam(required = false) String name,
                            @RequestParam(required = false) String author) {
         return bookServiceJooq.updateBook(idBook, name, author);
-
     }
 }
 

@@ -32,7 +32,8 @@ public class JooqConfigMetaData {
     @Bean
     public DataSource dataSource() {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl("jdbc:postgresql://postgres_db_book:5432/book_db");
+//        dataSource.setJdbcUrl("jdbc:postgresql://postgres_db_book:5432/book_db");
+        dataSource.setJdbcUrl("jdbc:postgresql://localhost:5432/book_db");
         dataSource.setUsername("postgres");
         dataSource.setPassword("123456");
         return dataSource;

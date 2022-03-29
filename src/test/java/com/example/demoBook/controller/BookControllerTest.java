@@ -7,8 +7,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+import com.example.demoBook.service.BookServiceJooq;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,12 @@ class BookControllerTest {
     @MockBean
     private BookService bookService;
 
+    @MockBean
+    private BookServiceJooq bookServiceJooq;
+
+    @MockBean
+    private BookController bookController;
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -41,71 +47,65 @@ class BookControllerTest {
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     String urlApi = "/api/v1/books";
 
+    Book book = new Book(2, "10000 cau hoi vi sao?", "PhamSang",
+            "Khoahoc", "Sach kham pha",
+            LocalDate.of(2010, 04, 12),
+            LocalDate.of(2015, 8,11));
+
     @Test
     void getBooks() throws Exception {
         List<Book> books = new ArrayList<>();
-        Book book = new Book(2, "10000 cau hoi vi sao?", "PhamSang",
-                "Khoahoc", "Sach kham pha",
-                LocalDate.of(2010, 04, 12),
-                LocalDate.of(2015, 8,11));
         books.add(book);
-        when(bookService.getBooks()).thenReturn(books);
-
-        LocalDate dateCreate = LocalDate.of(2010, 04, 12);
-        LocalDate dateUpdate = LocalDate.of(2015, 8, 11);
-
+        when(bookController.getBooks()).thenReturn(books);
         this.mockMvc.perform(MockMvcRequestBuilders.get(urlApi))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()", Matchers.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(2))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Cac vi sao"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].author").value("PhamSang"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].category").value("Khoahoc"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].desciption").value("Sach kham pha"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(book.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(book.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].author").value(book.getAuthor()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].category").value(book.getCategory()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].desciption").value(book.getDesciption()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].createDate")
-                        .value(dateTimeFormatter.format(dateCreate)))
+                        .value(dateTimeFormatter.format(book.getCreateDate())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].updateDate")
-                        .value(dateTimeFormatter.format(dateUpdate)));
+                        .value(dateTimeFormatter.format(book.getUpdateDate())));
     }
 
     @Test
     void getABook() throws Exception {
-
-        LocalDate dateCreate = LocalDate.of(2010, 04, 12);
-        LocalDate dateUpdate = LocalDate.of(2015, 8, 11);
-
+        when(bookController.getBookById(2)).thenReturn(book);
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/books/{id}",2))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Cac vi sao"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.author").value("PhamSang"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.category").value("Khoahoc"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.desciption").value("Sach kham pha"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(book.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(book.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.author").value(book.getAuthor()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.category").value(book.getCategory()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.desciption").value(book.getDesciption()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.createDate")
-                        .value(dateTimeFormatter.format(dateCreate)))
+                        .value(dateTimeFormatter.format(book.getCreateDate())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.updateDate")
-                        .value(dateTimeFormatter.format(dateUpdate)));
+                        .value(dateTimeFormatter.format(book.getUpdateDate())));
     }
 
     @Test
     void getBookAuthorAndCategory() throws Exception {
-        LocalDate dateCreate = LocalDate.of(2010, 04, 12);
-        LocalDate dateUpdate = LocalDate.of(2015, 8, 11);
-
+        List<Book> books = new ArrayList<>();
+        books.add(book);
+        when(bookController.getBookAuthorAndCategory("PhamSang", "Khoahoc")).thenReturn(books);
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/books/test")
                         .param("author", "PhamSang")
                         .param("category", "Khoahoc"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()", Matchers.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(2))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Cac vi sao"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].author").value("PhamSang"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].category").value("Khoahoc"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].desciption").value("Sach kham pha"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(book.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(book.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].author").value(book.getAuthor()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].category").value(book.getCategory()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].desciption").value(book.getDesciption()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].createDate")
-                        .value(dateTimeFormatter.format(dateCreate)))
+                        .value(dateTimeFormatter.format(book.getCreateDate())))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].updateDate")
-                        .value(dateTimeFormatter.format(dateUpdate)));
+                        .value(dateTimeFormatter.format(book.getUpdateDate())));
     }
 
     @Test
@@ -131,6 +131,15 @@ class BookControllerTest {
                                 +", \"desciption\":\"sach gianh cho hoc sinh THPT\",\"createDate\":\"2010-05-12\""
                                 +", \"updateDate\":\"2015-01-18\"}")
                         .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void updateBookTest()throws Exception{
+        when(bookController.updateBook(2, book.getName(), book.getAuthor())).thenReturn(book);
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/books/{id}",2)
+                        .param("name", book.getName())
+                        .param("author", book.getAuthor()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
