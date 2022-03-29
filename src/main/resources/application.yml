@@ -1,8 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://postgres_db_book:5432/book_db
-    username: postgres
-    password: 123456
+#    url: jdbc:postgresql://postgres_db_book:5432/book_db
+    url: ${URL}
+    username: ${USERNAME}
+    password: ${PASSWORD}
     driver-class-name: org.postgresql.Driver
   jooq:
     sql-dialect: POSTGRES
