@@ -1,8 +1,4 @@
 databaseChangeLog:
-  - preConditions:
-      - runningAs:
-          username: liquibase
-
   - changeSet:
       id: 1
       author: pcsang
@@ -30,7 +26,7 @@ databaseChangeLog:
                   name: category
                   type: varchar(255)
               - column:
-                  name: desciptoin
+                  name: desciption
                   type: varchar(500)
               - column:
                   name: create_date
