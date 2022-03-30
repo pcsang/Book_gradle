@@ -28,7 +28,7 @@ public class BookConfig {
                     LocalDate.of(2010, Month.APRIL,12),
                     LocalDate.of(2015, Month.AUGUST, 11));
 
-                repository.save(khoahoc2);
+            repository.save(khoahoc2);
         };
     }
 }

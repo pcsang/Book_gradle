@@ -7,7 +7,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.jooq.DSLContext;
-import org.jooq.Table;
+import org.jooq.Record2;
+import org.jooq.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,8 @@ public class BookServiceJooq {
     DSLContext dslContext;
 
     public List<Book> getBooks() {
-        List<Book> books = dslContext.
-                select()
+        List<Book> books = dslContext
+                .select()
                 .from("book")
                 .fetchInto(Book.class);
         return books;
@@ -68,6 +69,12 @@ public class BookServiceJooq {
                 .and(field("category").equal(category))
                 .fetchInto(Book.class);
         return books;
+    }
+
+    public int getCountBook_Author(String author) {
+        int count = dslContext.selectCount().from("book").where(field("author")
+                .equal(author)).fetchOne(0, int.class);
+        return count;
     }
 
 }
