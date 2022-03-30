@@ -53,7 +53,7 @@ public class BookController {
         bookServiceJooq.addNewBook(book);
     }
 
-    @DeleteMapping(path = "{idBook}")
+    @DeleteMapping(path = "/{idBook}")
     public void deleteBook(@PathVariable("idBook") int idBook) {
         bookServiceJooq.deleteBook(idBook);
     }
@@ -63,6 +63,15 @@ public class BookController {
                            @RequestParam(required = false) String name,
                            @RequestParam(required = false) String author) {
         return bookServiceJooq.updateBook(idBook, name, author);
+    }
+
+    @GetMapping(path = "/countBook")
+    public String getCountBookByAuthor(@RequestParam(required = false) String author) {
+        int count = bookServiceJooq.getCountBook_Author(author);
+        String json = "{"
+                + "\"Author\":\""+author+"\""
+                + ",\"BookCount\":\""+count+"\"}";
+        return json;
     }
 }
 
