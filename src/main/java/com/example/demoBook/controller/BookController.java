@@ -53,7 +53,7 @@ public class BookController {
         bookServiceJooq.addNewBook(book);
     }
 
-    @DeleteMapping(path = "{idBook}")
+    @DeleteMapping(path = "/{idBook}")
     public void deleteBook(@PathVariable("idBook") int idBook) {
         bookServiceJooq.deleteBook(idBook);
     }
