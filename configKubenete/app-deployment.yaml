@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sping-boot-api
+  labels:
+    app: sping-boot-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot-api
+  template:
+    metadata:
+      labels:
+        app: spring-boot-api
+    spec:
+      containers:
+      - name: spring-boot-api
+        image: sping-boot-api:1.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: URLHOST
+          value: postgresdb
+        - name: DB_name
+          value: postgres
+        - name: PASSWORD
+          value: postgres1234
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-api-service
+spec:
+  ports:
+  - protocol: TCP
+    port: 9090
+    targetPort: 8080
+    nodePort: 30000
+  type: LoadBalancer
+  selector:
+    app: spring-boot-api
