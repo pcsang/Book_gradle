@@ -24,7 +24,7 @@ import com.example.demoBook.book.Book;
 class BookServiceJooqTest {
 
     @Autowired
-    DSLContext dsl;
+    private DSLContext dsl;
 
     Book book = new Book(2, "10000 cau hoi vi sao?", "PhamSang",
             "Khoahoc", "Sach kham pha",
