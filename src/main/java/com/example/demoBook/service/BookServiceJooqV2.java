@@ -14,6 +14,7 @@ public class BookServiceJooqV2 {
     public BookServiceJooqV2(JooqBookRepository jooqBookRepository) {
         this.jooqBookRepository = jooqBookRepository;
     }
+
     public List<Book> getAll() {
         return jooqBookRepository.getAllBook();
     }
