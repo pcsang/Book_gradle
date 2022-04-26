@@ -7,12 +7,11 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.jooq.DSLContext;
-import org.jooq.Record2;
-import org.jooq.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demoBook.book.Book;
+import com.example.demoBook.repository.JooqBookRepository;
 
 @Service
 public class BookServiceJooq {
@@ -20,12 +19,10 @@ public class BookServiceJooq {
     @Autowired
     DSLContext dslContext;
 
+    JooqBookRepository jooqBookRepository;
+
     public List<Book> getBooks() {
-        List<Book> books = dslContext
-                .select()
-                .from("book")
-                .fetchInto(Book.class);
-        return books;
+        return jooqBookRepository.getAllBook();
     }
 
     public void addNewBook(Book book) {
@@ -59,7 +56,7 @@ public class BookServiceJooq {
     }
 
     public Book getABookId(int idBook) {
-        Book book = (Book) dslContext.selectFrom("book").where(field("id").eq(idBook)).fetchOneInto(Book.class);
+        Book book = dslContext.selectFrom("book").where(field("id").eq(idBook)).fetchOneInto(Book.class);
         return book;
     }
 
