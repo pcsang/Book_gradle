@@ -2,7 +2,7 @@ spring:
   datasource:
 #    url: jdbc:postgresql://postgres_db_book:5432/book_db
     url: jdbc:postgresql://${URLHOST}:5432/book_db
-    username: ${USERNAME}
+    username: postgres
     password: ${PASSWORD}
     driver-class-name: org.postgresql.Driver
   jooq:
@@ -20,4 +20,5 @@ spring:
 server:
   error:
     include-message: always
-  port: 8081
+  port: 9090
+

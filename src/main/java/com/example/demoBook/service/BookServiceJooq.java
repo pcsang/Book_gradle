@@ -19,10 +19,11 @@ public class BookServiceJooq {
     @Autowired
     DSLContext dslContext;
 
-    JooqBookRepository jooqBookRepository;
-
     public List<Book> getBooks() {
-        return jooqBookRepository.getAllBook();
+        List<Book> books = dslContext.select()
+                .from("book")
+                .fetchInto(Book.class);
+        return books;
     }
 
     public void addNewBook(Book book) {
