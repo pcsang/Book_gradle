@@ -2,7 +2,6 @@ package com.example.demoBook.service;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
-import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,10 +18,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.util.AssertionErrors;
 
 import com.example.demoBook.book.Book;
 import com.example.demoBook.repository.JooqBookRepository;
-import org.springframework.test.util.AssertionErrors;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)

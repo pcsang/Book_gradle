@@ -3,10 +3,10 @@ package com.example.demoBook.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import com.example.demoBook.service.BookServiceJooqV2;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demoBook.book.Book;
+import com.example.demoBook.service.BookServiceJooqV2;
 
 @RestController
 @RequestMapping(path = "/api/v2/books")
