@@ -40,7 +40,10 @@
             <property name="ignorePattern"
                       value="^package.*|^import.*|a href|href|http://|https://|ftp://" />
         </module>
-        <module name="AvoidStarImport" />
+        <!-- Allow import group .*       -->
+        <module name="AvoidStarImport">
+            <property name="excludes" value="org.springframework.web.bind.annotation"/>
+        </module>
         <module name="OneTopLevelClass" />
         <module name="NoLineWrap" />
         <module name="EmptyBlock">
