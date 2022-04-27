@@ -1,6 +1,8 @@
 package com.example.demoBook.service;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -16,10 +19,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.util.AssertionErrors;
 
 import com.example.demoBook.book.Book;
 import com.example.demoBook.repository.JooqBookRepository;
+import org.springframework.test.util.AssertionErrors;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
@@ -61,16 +64,38 @@ public class BookServiceJooqV2Test {
     }
 
     @Test
-    public void getBookByIdSuccesses() {
+    public void getBookByIdSuccessesTest() {
         Mockito.when(jooqBookRepository.getBookById(any(Integer.class))).thenReturn(book);
         Book bookExpect = bookServiceJooqV2.getBookById(1);
         Assert.assertEquals(bookExpect, book);
     }
 
     @Test
-    public void getBookByIdSuccessWithReturnNull() {
+    public void getBookByIdSuccessWithReturnNullTest() {
         Mockito.when(jooqBookRepository.getBookById(any(Integer.class))).thenReturn(null);
         Book bookExpect = bookServiceJooqV2.getBookById(1);
         Assert.assertEquals(bookExpect, null);
+    }
+
+    @Test
+    public void getBookByCategoryAndAuthorSuccessTest() {
+        Mockito.when(jooqBookRepository.getBookBy_AuthorAndCategory(any(String.class), any(String.class)))
+                .thenReturn(booksExpect);
+        List<Book> booksActual = bookServiceJooqV2.getBookAuthor_Category("pcsang", "Note");
+        Assert.assertEquals(booksExpect, booksActual);
+    }
+
+    @Test
+    public void getBookByCategoryAndAuthorSuccessWithNullTest() {
+        Mockito.when(jooqBookRepository.getBookBy_AuthorAndCategory(any(String.class), any(String.class)))
+                .thenReturn(null);
+        List<Book> booksActual = bookServiceJooqV2.getBookAuthor_Category("pcsang", "Note");
+        Assert.assertEquals(null, booksActual);
+    }
+
+    @Test
+    public void addBookSuccessTest() {
+        doNothing().when(jooqBookRepository).save(any(Book.class));
+        Assertions.assertDoesNotThrow(()->jooqBookRepository.save(book));
     }
 }
