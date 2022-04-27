@@ -1,4 +1,4 @@
-package com.example.demoBook.configuration;
+package com.example.demoBook.controller.configuration;
 
 import java.time.LocalDate;
 import java.time.Month;
