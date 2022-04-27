@@ -1,4 +1,4 @@
-package com.example.demoBook.configuration;
+package com.example.demoBook.controller.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,13 +17,13 @@ public class Authentication  extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
+        http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/v1/books/**")
-                .access("hasRole('USER') or hasRole('ADMIN')")
-                .antMatchers(HttpMethod.POST, "/api/v1/books").access("hasRole('ADMIN')")
+                .antMatchers(HttpMethod.GET, "/api/v1/**")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().and()
+                .formLogin().permitAll().and()
                 .httpBasic();
     }
 
