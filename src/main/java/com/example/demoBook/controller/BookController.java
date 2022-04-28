@@ -15,19 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demoBook.book.Book;
-import com.example.demoBook.service.BookService;
 import com.example.demoBook.service.BookServiceJooq;
 
 @RestController
 @RequestMapping(path = "/api/v1/books")
 public class BookController {
 
-    private final BookService bookService;
-    private final BookServiceJooq bookServiceJooq;
+    BookServiceJooq bookServiceJooq;
 
     @Autowired
-    public BookController(BookService bookService, BookServiceJooq bookServiceJooq) {
-        this.bookService = bookService;
+    public BookController(BookServiceJooq bookServiceJooq) {
         this.bookServiceJooq = bookServiceJooq;
     }
 

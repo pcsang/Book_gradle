@@ -17,6 +17,7 @@ public class Authentication  extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
+        http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api/v1/books/**")
                 .access("hasRole('USER') or hasRole('ADMIN')")
