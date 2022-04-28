@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.demoBook.book.Book;
 import org.assertj.core.api.Assertions;
+
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import com.example.demoBook.book.Book;
 import com.example.demoBook.service.BookServiceJooqV2;
 import com.example.demoBook.util.GivenData;
 
@@ -60,5 +61,4 @@ public class BookControllerV2Test {
                 .andReturn().getResponse();
         Assertions.assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
-
 }
