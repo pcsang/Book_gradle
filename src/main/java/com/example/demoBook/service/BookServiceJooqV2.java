@@ -1,5 +1,7 @@
 package com.example.demoBook.service;
 
+import static com.example.demoBook.messenger.Messenger.NOT_FOUNT_ID_OF_BOOK;
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,7 +22,11 @@ public class BookServiceJooqV2 {
     }
 
     public Book getBookById(int idBook) {
-        return jooqBookRepository.getBookById(idBook);
+        Book book = jooqBookRepository.getBookById(idBook);
+        if(book == null) {
+            throw new IllegalStateException(String.format(NOT_FOUNT_ID_OF_BOOK, idBook));
+        }
+        return book;
     }
 
     public List<Book> getBookAuthor_Category(String author, String category) {
@@ -32,6 +38,11 @@ public class BookServiceJooqV2 {
     }
 
     public void deleteBook(int idBook) {
+        String messenger = "ID Book" + idBook + "doesn't exits inside Book";
+        Book book = getBookById(idBook);
+        if(book == null){
+            throw new IllegalStateException(messenger);
+        }
         jooqBookRepository.deleteById(idBook);
     }
 
