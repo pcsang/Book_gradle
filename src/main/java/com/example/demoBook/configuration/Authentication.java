@@ -1,4 +1,4 @@
-package com.example.demoBook.controller.configuration;
+package com.example.demoBook.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
