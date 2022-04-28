@@ -1,4 +1,4 @@
-package com.example.demoBook.controller.configuration;
+package com.example.demoBook.configuration;
 
 import org.jooq.ExecuteContext;
 import org.jooq.SQLDialect;
