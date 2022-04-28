@@ -36,8 +36,8 @@ public class BookControllerV2 {
     }
 
     @PostMapping
-    public void registerNewBook(@RequestBody Book book) {
-        bookServiceJooqV2.addBook(book);
+    public Book registerNewBook(@RequestBody Book book) {
+        return bookServiceJooqV2.addBook(book);
     }
 
     @DeleteMapping(path = "/{idBook}")

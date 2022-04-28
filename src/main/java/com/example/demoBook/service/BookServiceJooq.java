@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demoBook.book.Book;
-import com.example.demoBook.repository.JooqBookRepository;
 
 @Service
 public class BookServiceJooq {
