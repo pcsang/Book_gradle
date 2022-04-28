@@ -17,13 +17,13 @@ import com.example.demoBook.book.Book;
 public class JooqBookRepository {
 
     private final String Table_Book = "book";
-    private final String ID_FIELD = Table_Book + "." + "id";
-    private final String NAME_FIELD = Table_Book + "." + "name";
-    private final String AUTHOR_FIELD = Table_Book + "." + "author";
-    private final String CATEGORY_FIELD = Table_Book + "." + "category";
-    private final String DESCIPTION_FIELD = Table_Book + "." + "desciption";
-    private final String CREATE_FIELD = Table_Book + "." + "create_date";
-    private final String UPDATE_FIELD = Table_Book + "." + "update_date";
+    private final String ID_FIELD = "id";
+    private final String NAME_FIELD = "name";
+    private final String AUTHOR_FIELD = "author";
+    private final String CATEGORY_FIELD = "category";
+    private final String DESCIPTION_FIELD = "desciption";
+    private final String CREATE_FIELD = "create_date";
+    private final String UPDATE_FIELD = "update_date";
 
     @Autowired
     DSLContext dsl;
@@ -36,7 +36,7 @@ public class JooqBookRepository {
     }
 
     public void save(Book book) {
-        dsl.insertInto(table(Table_Book))
+        dsl.insertInto(table("book"))
                 .set(field(ID_FIELD), book.getId())
                 .set(field(NAME_FIELD), book.getName())
                 .set(field(AUTHOR_FIELD), book.getAuthor())

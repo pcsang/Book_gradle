@@ -3,7 +3,7 @@ package com.example.demoBook.controller;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
-//import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,8 +19,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-//import org.springframework.security.test.context.support.WithMockUser;
-//import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import org.springframework.test.web.servlet.MockMvc;
@@ -48,9 +48,9 @@ class BookControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-//    public void setup(){
-//        mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
-//    }
+    public void setup(){
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
+    }
 
     @Test
     public void shouldCreateMockMvc() {
@@ -65,7 +65,7 @@ class BookControllerTest {
             LocalDate.of(2010, 04, 12),
             LocalDate.of(2015, 8,11));
 
-//    @WithMockUser(value = "sang")
+    @WithMockUser(value = "sang")
     @Test
     void getBooks() throws Exception {
         List<Book> books = new ArrayList<>();
@@ -87,7 +87,7 @@ class BookControllerTest {
                         .value(dateTimeFormatter.format(book.getUpdateDate())));
     }
 
-//    @WithMockUser(value = "sang")
+    @WithMockUser(value = "sang")
     @Test
     void getABook() throws Exception {
         given(bookServiceJooq.getABookId(2)).willReturn(book);
@@ -106,7 +106,7 @@ class BookControllerTest {
                         .value(dateTimeFormatter.format(book.getUpdateDate())));
     }
 
-//    @WithMockUser(value = "sang")
+    @WithMockUser(value = "sang")
     @Test
     void getBookAuthorAndCategory() throws Exception {
         List<Book> books = new ArrayList<>();
@@ -133,8 +133,8 @@ class BookControllerTest {
     void registerNewBook() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                         .post(urlApi)
-//                        .with(SecurityMockMvcRequestPostProcessors.user("sang").roles("USER", "ADMIN"))
-//                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .with(SecurityMockMvcRequestPostProcessors.user("sang").roles("USER", "ADMIN"))
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{\"id\":\"10\",\"author\":\"pcsang\", \"category\":\"lich su\""
                                 +", \"name\":\"sach giao khoa lich su 12\""
@@ -149,8 +149,8 @@ class BookControllerTest {
         this.mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/books/{id}",10)
                         .param("name", "Sach tham khao thi TOIEC")
                         .param("author", "pham chi sang")
-//                        .with(SecurityMockMvcRequestPostProcessors.user("sang").roles("USER", "ADMIN"))
-//                        .with(SecurityMockMvcRequestPostProcessors.csrf())
+                        .with(SecurityMockMvcRequestPostProcessors.user("sang").roles("USER", "ADMIN"))
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content("{\"id\":\"10\",\"author\":\"pham chi sang\", \"category\":\"lich su\""
                                 +", \"name\":\"Sach tham khao thi TOIEC\""
@@ -165,18 +165,18 @@ class BookControllerTest {
         when(bookServiceJooq.updateBook(2, book.getName(), book.getAuthor())).thenReturn(book);
         this.mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/books/{id}",2)
                         .param("name", book.getName())
-                        .param("author", book.getAuthor()))
-//                .with(SecurityMockMvcRequestPostProcessors.user("sang").roles("USER", "ADMIN"))
-//                .with(SecurityMockMvcRequestPostProcessors.csrf()))
+                        .param("author", book.getAuthor())
+                .with(SecurityMockMvcRequestPostProcessors.user("sang").roles("USER", "ADMIN"))
+                .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
-//    @WithMockUser(value = "sang", roles = {"ADMIN"})
+    @WithMockUser(value = "sang", roles = {"ADMIN"})
     @Test
     void deleteBook() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/books/{id}", 10))
-//                .with(SecurityMockMvcRequestPostProcessors.user("sang").roles("USER", "ADMIN"))
-//                .with(SecurityMockMvcRequestPostProcessors.csrf()))
+        this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/books/{id}", 10)
+                .with(SecurityMockMvcRequestPostProcessors.user("sang").roles("USER", "ADMIN"))
+                .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }
