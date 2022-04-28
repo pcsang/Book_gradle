@@ -40,7 +40,10 @@
             <property name="ignorePattern"
                       value="^package.*|^import.*|a href|href|http://|https://|ftp://" />
         </module>
-        <module name="AvoidStarImport" />
+        <!-- Allow import group .*       -->
+        <module name="AvoidStarImport">
+            <property name="excludes" value="org.springframework.web.bind.annotation"/>
+        </module>
         <module name="OneTopLevelClass" />
         <module name="NoLineWrap" />
         <module name="EmptyBlock">
@@ -99,7 +102,7 @@
             <message key="name.invalidPattern" value="Type name ''{0}'' must match pattern ''{1}''." />
         </module>
         <module name="MemberName">
-            <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$" />
+            <property name="format" value="[a-z0-9_A-Z]" />
             <message key="name.invalidPattern" value="Member name ''{0}'' must match pattern ''{1}''." />
         </module>
         <module name="ParameterName">
@@ -153,7 +156,7 @@
         </module>
         <module name="AbbreviationAsWordInName">
             <property name="ignoreFinal" value="false" />
-            <property name="allowedAbbreviationLength" value="1" />
+            <property name="allowedAbbreviationLength" value="10" />
         </module>
         <module name="OverloadMethodsDeclarationOrder" />
         <module name="VariableDeclarationUsageDistance" />
