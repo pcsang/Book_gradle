@@ -95,7 +95,8 @@ public class BookServiceJooqV2Test {
 
     @Test
     public void addBookSuccessTest() {
-        doNothing().when(jooqBookRepository).save(any(Book.class));
-        Assertions.assertDoesNotThrow(()->jooqBookRepository.save(book));
+        Mockito.when(jooqBookRepository.save(any(Book.class))).thenReturn(book);
+        Book bookActual = bookServiceJooqV2.addBook(book);
+        Assertions.assertEquals(bookActual, book);
     }
 }

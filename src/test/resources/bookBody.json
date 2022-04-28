@@ -1,5 +1,4 @@
-[
-  {
+{
     "id": 1,
     "author":"pcsang",
     "category":"lich su Viet Nam",
@@ -7,5 +6,4 @@
     "desciption":"sach gianh HS and SV",
     "createDate":"2010-05-12",
     "updateDate":"2020-01-18"
-  }
-]
+}

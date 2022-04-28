@@ -27,8 +27,8 @@ public class BookServiceJooqV2 {
         return jooqBookRepository.getBookBy_AuthorAndCategory(author, category);
     }
 
-    public void addBook(Book book) {
-        jooqBookRepository.save(book);
+    public Book addBook(Book book) {
+        return jooqBookRepository.save(book);
     }
 
     public void deleteBook(int idBook) {

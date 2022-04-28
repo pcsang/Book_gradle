@@ -35,7 +35,7 @@ public class JooqBookRepository {
         return books;
     }
 
-    public void save(Book book) {
+    public Book save(Book book) {
         dsl.insertInto(table("book"))
                 .set(field(ID_FIELD), book.getId())
                 .set(field(NAME_FIELD), book.getName())
@@ -45,6 +45,7 @@ public class JooqBookRepository {
                 .set(field(CREATE_FIELD), book.getCreateDate())
                 .set(field(UPDATE_FIELD), book.getUpdateDate())
                 .execute();
+        return getBookById(book.getId());
     }
 
     public void deleteById(int id) {
