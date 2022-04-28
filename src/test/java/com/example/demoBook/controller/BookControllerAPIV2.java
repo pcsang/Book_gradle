@@ -1,17 +1,19 @@
 package com.example.demoBook.controller;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.demoBook.service.BookServiceJooqV2;
 import org.assertj.core.api.Assertions;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,11 +24,12 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.demoBook.book.Book;
-import com.example.demoBook.service.BookServiceJooq;
-import com.example.demoBook.util.GivenData;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import com.example.demoBook.book.Book;
+import com.example.demoBook.service.BookServiceJooqV2;
+import com.example.demoBook.util.GivenData;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)
@@ -58,8 +61,18 @@ public class BookControllerAPIV2 {
 
     @Test
     public void getBooksSuccess200Test() throws Exception {
-        Mockito.when(bookServiceJooqV2.getAll()).thenReturn(books);
+        when(bookServiceJooqV2.getAll()).thenReturn(books);
         MockHttpServletResponse response = this.mockMvc.perform(MockMvcRequestBuilders.get(urlApi)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn().getResponse();
+        Assertions.assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    public void getBookByIdSuccess200Test() throws Exception {
+        when(bookServiceJooqV2.getBookById(any(Integer.class))).thenReturn(book);
+        MockHttpServletResponse response = this.mockMvc.perform(MockMvcRequestBuilders.get(urlApi+"/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse();
