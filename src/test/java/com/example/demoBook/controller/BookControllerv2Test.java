@@ -35,7 +35,7 @@ import com.example.demoBook.util.GivenData;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)
 @RunWith(SpringRunner.class)
-public class BookControllerV2Test {
+public class BookControllerv2Test {
 
     @MockBean
     BookServiceJooq bookServiceJooq;
@@ -58,7 +58,7 @@ public class BookControllerV2Test {
     @Autowired
     private MockMvc mockMvc;
 
-    public BookControllerV2Test() throws IOException {
+    public BookControllerv2Test() throws IOException {
     }
 
     @Test

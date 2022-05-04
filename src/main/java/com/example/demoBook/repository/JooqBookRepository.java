@@ -49,11 +49,7 @@ public class JooqBookRepository {
     }
 
     public void deleteById(int id) {
-        String messenger = "Book with id "+id+" does not exists";
-        int result = dsl.delete(table(Table_Book)).where(field(ID_FIELD).eq(id)).execute();
-        if(result==0){
-            throw new IllegalStateException(messenger);
-        }
+        dsl.delete(table(Table_Book)).where(field(ID_FIELD).eq(id)).execute();
     }
 
     public Book getBookById(int id) {
