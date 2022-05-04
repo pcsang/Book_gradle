@@ -1,7 +1,7 @@
 package com.example.demoBook.service;
 
+import static com.example.demoBook.messenger.Messenger.NOT_FOUNT_ID_OF_BOOK;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,7 +22,6 @@ import org.springframework.test.util.AssertionErrors;
 
 import com.example.demoBook.book.Book;
 import com.example.demoBook.repository.JooqBookRepository;
-
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
@@ -71,10 +70,12 @@ public class BookServiceJooqV2Test {
     }
 
     @Test
-    public void getBookByIdSuccessWithReturnNullTest() {
+    public void getBookByIdFailWithIDNotFound() {
+
         Mockito.when(jooqBookRepository.getBookById(any(Integer.class))).thenReturn(null);
-        Book bookExpect = bookServiceJooqV2.getBookById(1);
-        Assert.assertEquals(bookExpect, null);
+        Throwable responce = Assertions.assertThrows(IllegalStateException.class,
+                ()->bookServiceJooqV2.getBookById(1));
+        Assertions.assertEquals(String.format(NOT_FOUNT_ID_OF_BOOK, 1), responce.getMessage());
     }
 
     @Test
@@ -99,4 +100,6 @@ public class BookServiceJooqV2Test {
         Book bookActual = bookServiceJooqV2.addBook(book);
         Assertions.assertEquals(bookActual, book);
     }
+
+
 }
