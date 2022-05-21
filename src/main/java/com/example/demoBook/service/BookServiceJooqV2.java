@@ -38,10 +38,9 @@ public class BookServiceJooqV2 {
     }
 
     public void deleteBook(int idBook) {
-        String messenger = "ID Book" + idBook + "doesn't exits inside Book";
-        Book book = getBookById(idBook);
-        if(book == null){
-            throw new IllegalStateException(messenger);
+        Book book = jooqBookRepository.getBookById(idBook);
+        if(isEmpty(book)){
+            throw new IllegalStateException(String.format(NOT_FOUNT_ID_OF_BOOK, idBook));
         }
         jooqBookRepository.deleteById(idBook);
     }
@@ -49,4 +48,9 @@ public class BookServiceJooqV2 {
     public Book updateBook(int idBook, Book book) {
         return jooqBookRepository.updateBook(idBook, book);
     }
+
+    public boolean isEmpty(Book b) {
+        return (b == null) ? true : false;
+    }
+
 }
