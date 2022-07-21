@@ -106,7 +106,7 @@ public class BookServiceJooqV2Test {
     public void deleteBookIdSuccessfully() {
         when(jooqBookRepository.getBookById(any(Integer.class))).thenReturn(book);
         doNothing().when(jooqBookRepository).deleteById(any(Integer.class));
-       assertDoesNotThrow(() -> bookServiceJooqV2.deleteBook(1));
+        assertDoesNotThrow(() -> bookServiceJooqV2.deleteBook(1));
     }
 
     @Test
