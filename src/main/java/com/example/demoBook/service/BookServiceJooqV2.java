@@ -49,8 +49,8 @@ public class BookServiceJooqV2 {
         return jooqBookRepository.updateBook(idBook, book);
     }
 
-    public boolean isEmpty(Book b) {
-        return (b == null) ? true : false;
+    public boolean isEmpty(Book book) {
+        return (book == null) ? true : false;
     }
 
 }
