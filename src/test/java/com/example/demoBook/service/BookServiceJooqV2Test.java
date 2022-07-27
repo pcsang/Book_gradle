@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
+import com.example.demoBook.exceptions.ExceptionInput;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -112,7 +113,7 @@ public class BookServiceJooqV2Test {
 
     @Test
     public void deleteBookIdFailWithIdNotFound() {
-        Throwable exception = assertThrows(IllegalStateException.class, () -> bookServiceJooqV2.deleteBook(1));
+        Throwable exception = assertThrows(ExceptionInput.class, () -> bookServiceJooqV2.deleteBook(1));
         assertEquals(String.format(NOT_FOUNT_ID_OF_BOOK, 1), exception.getMessage());
     }
 }
