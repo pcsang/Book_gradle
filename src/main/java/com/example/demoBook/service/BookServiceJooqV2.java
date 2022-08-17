@@ -4,6 +4,7 @@ import static com.example.demoBook.messenger.Messenger.NOT_FOUNT_ID_OF_BOOK;
 
 import java.util.List;
 
+import com.example.demoBook.exceptions.ExceptionInput;
 import org.springframework.stereotype.Service;
 
 import com.example.demoBook.book.Book;
@@ -40,7 +41,7 @@ public class BookServiceJooqV2 {
     public void deleteBook(int idBook) {
         Book book = jooqBookRepository.getBookById(idBook);
         if(isEmpty(book)){
-            throw new IllegalStateException(String.format(NOT_FOUNT_ID_OF_BOOK, idBook));
+            throw new ExceptionInput(String.format(NOT_FOUNT_ID_OF_BOOK, idBook));
         }
         jooqBookRepository.deleteById(idBook);
     }
@@ -49,8 +50,8 @@ public class BookServiceJooqV2 {
         return jooqBookRepository.updateBook(idBook, book);
     }
 
-    public boolean isEmpty(Book b) {
-        return (b == null) ? true : false;
+    public boolean isEmpty(Book book) {
+        return (book == null) ? true : false;
     }
 
 }

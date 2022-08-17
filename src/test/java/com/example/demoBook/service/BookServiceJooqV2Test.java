@@ -1,15 +1,18 @@
 package com.example.demoBook.service;
 
 import static com.example.demoBook.messenger.Messenger.NOT_FOUNT_ID_OF_BOOK;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
+import com.example.demoBook.exceptions.ExceptionInput;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -74,9 +77,8 @@ public class BookServiceJooqV2Test {
     public void getBookByIdFailWithIDNotFound() {
 
         when(jooqBookRepository.getBookById(any(Integer.class))).thenReturn(null);
-        Throwable responce = Assertions.assertThrows(IllegalStateException.class,
-                ()->bookServiceJooqV2.getBookById(1));
-        Assertions.assertEquals(String.format(NOT_FOUNT_ID_OF_BOOK, 1), responce.getMessage());
+        Throwable responce = assertThrows(IllegalStateException.class, ()->bookServiceJooqV2.getBookById(1));
+        assertEquals(String.format(NOT_FOUNT_ID_OF_BOOK, 1), responce.getMessage());
     }
 
     @Test
@@ -99,19 +101,19 @@ public class BookServiceJooqV2Test {
     public void addBookSuccessTest() {
         when(jooqBookRepository.save(any(Book.class))).thenReturn(book);
         Book bookActual = bookServiceJooqV2.addBook(book);
-        Assertions.assertEquals(bookActual, book);
+        assertEquals(bookActual, book);
     }
 
     @Test
     public void deleteBookIdSuccessfully() {
         when(jooqBookRepository.getBookById(any(Integer.class))).thenReturn(book);
         doNothing().when(jooqBookRepository).deleteById(any(Integer.class));
-       assertDoesNotThrow(() -> bookServiceJooqV2.deleteBook(1));
+        Assertions.assertDoesNotThrow(() -> bookServiceJooqV2.deleteBook(1));
     }
 
     @Test
     public void deleteBookIdFailWithIdNotFound() {
-        Throwable exception = assertThrows(IllegalStateException.class, () -> bookServiceJooqV2.deleteBook(1));
+        Throwable exception = assertThrows(ExceptionInput.class, () -> bookServiceJooqV2.deleteBook(1));
         assertEquals(String.format(NOT_FOUNT_ID_OF_BOOK, 1), exception.getMessage());
     }
 }
