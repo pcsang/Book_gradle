@@ -22,7 +22,7 @@ spec:
         env:
         - name: URLHOST
           value: postgresdb
-        - name: DB_name
+        - name: USERNAME
           value: postgres
         - name: PASSWORD
           value: postgres1234
