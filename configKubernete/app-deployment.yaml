@@ -23,7 +23,7 @@ spec:
         - name: URLHOST
           value: postgresdb
         - name: DB_name
-          value: postgres
+          value: book_db
         - name: PASSWORD
           value: postgres1234
 ---
@@ -37,6 +37,6 @@ spec:
     port: 9090
     targetPort: 8080
     nodePort: 30000
-  type: LoadBalancer
+#  type: LoadBalancer
   selector:
     app: spring-boot-api
