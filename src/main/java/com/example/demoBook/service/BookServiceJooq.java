@@ -16,7 +16,7 @@ import com.example.demoBook.book.Book;
 public class BookServiceJooq {
 
     @Autowired
-    DSLContext dslContext;
+    private DSLContext dslContext;
 
     public List<Book> getBooks() {
         List<Book> books = dslContext.select()

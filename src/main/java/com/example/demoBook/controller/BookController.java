@@ -13,7 +13,7 @@ import com.example.demoBook.service.BookServiceJooq;
 @RequestMapping(path = "/api/v1/books")
 public class BookController {
 
-    BookServiceJooq bookServiceJooq;
+    private final BookServiceJooq bookServiceJooq;
 
     @Autowired
     public BookController(BookServiceJooq bookServiceJooq) {
