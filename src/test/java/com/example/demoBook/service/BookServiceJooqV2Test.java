@@ -1,7 +1,9 @@
 package com.example.demoBook.service;
 
 import static com.example.demoBook.messenger.Messenger.NOT_FOUNT_ID_OF_BOOK;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
@@ -12,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
-import com.example.demoBook.exceptions.ExceptionInput;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,23 +25,19 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.AssertionErrors;
 
 import com.example.demoBook.book.Book;
+import com.example.demoBook.exceptions.ExceptionInput;
 import com.example.demoBook.repository.JooqBookRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 public class BookServiceJooqV2Test {
     private Book book;
-    private List<Book> booksExpect = new ArrayList<>();
+    private final List<Book> booksExpect = new ArrayList<>();
     @Mock
-    JooqBookRepository jooqBookRepository;
+    private JooqBookRepository jooqBookRepository;
 
     @InjectMocks
-    BookServiceJooqV2 bookServiceJooqV2;
-
-    @PostConstruct
-    public void postConstruct() {
-        bookServiceJooqV2.jooqBookRepository = jooqBookRepository;
-    }
+    private BookServiceJooqV2 bookServiceJooqV2;
 
     @BeforeEach
     public void setUp() {
@@ -63,22 +59,22 @@ public class BookServiceJooqV2Test {
     public void getAllSuccessTest() {
         when(jooqBookRepository.getAllBook()).thenReturn(booksExpect);
         List<Book> booksActual = bookServiceJooqV2.getAll();
-        Assert.assertEquals(booksActual, booksExpect);
+        assertEquals(booksActual, booksExpect);
     }
 
     @Test
     public void getBookByIdSuccessesTest() {
         when(jooqBookRepository.getBookById(any(Integer.class))).thenReturn(book);
         Book bookExpect = bookServiceJooqV2.getBookById(1);
-        Assert.assertEquals(bookExpect, book);
+        assertEquals(bookExpect, book);
     }
 
     @Test
     public void getBookByIdFailWithIDNotFound() {
 
         when(jooqBookRepository.getBookById(any(Integer.class))).thenReturn(null);
-        Throwable responce = assertThrows(IllegalStateException.class, ()->bookServiceJooqV2.getBookById(1));
-        assertEquals(String.format(NOT_FOUNT_ID_OF_BOOK, 1), responce.getMessage());
+        Throwable response = assertThrows(IllegalStateException.class, ()->bookServiceJooqV2.getBookById(1));
+        assertEquals(String.format(NOT_FOUNT_ID_OF_BOOK, 1), response.getMessage());
     }
 
     @Test
@@ -86,7 +82,7 @@ public class BookServiceJooqV2Test {
         when(jooqBookRepository.getBookBy_AuthorAndCategory(any(String.class), any(String.class)))
                 .thenReturn(booksExpect);
         List<Book> booksActual = bookServiceJooqV2.getBookAuthor_Category("pcsang", "Note");
-        Assert.assertEquals(booksExpect, booksActual);
+        assertEquals(booksExpect, booksActual);
     }
 
     @Test
@@ -94,7 +90,7 @@ public class BookServiceJooqV2Test {
         when(jooqBookRepository.getBookBy_AuthorAndCategory(any(String.class), any(String.class)))
                 .thenReturn(null);
         List<Book> booksActual = bookServiceJooqV2.getBookAuthor_Category("pcsang", "Note");
-        Assert.assertEquals(null, booksActual);
+        assertNull(booksActual);
     }
 
     @Test

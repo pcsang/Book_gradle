@@ -4,16 +4,18 @@ import static com.example.demoBook.messenger.Messenger.NOT_FOUNT_ID_OF_BOOK;
 
 import java.util.List;
 
-import com.example.demoBook.exceptions.ExceptionInput;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demoBook.book.Book;
+import com.example.demoBook.exceptions.ExceptionInput;
 import com.example.demoBook.repository.JooqBookRepository;
 
 @Service
 public class BookServiceJooqV2 {
-    JooqBookRepository jooqBookRepository;
+    private final JooqBookRepository jooqBookRepository;
 
+    @Autowired
     public BookServiceJooqV2(JooqBookRepository jooqBookRepository) {
         this.jooqBookRepository = jooqBookRepository;
     }

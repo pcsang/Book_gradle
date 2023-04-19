@@ -34,17 +34,20 @@ import com.example.demoBook.util.GivenData;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)
 @RunWith(SpringRunner.class)
-public class BookControllerAPIV2 {
+public class BookControllerV2Test {
     @MockBean
     BookServiceJooqV2 bookServiceJooqV2;
 
+    @Autowired
+    private MockMvc mockMvc;
+
     String bookBody = GivenData.dataExpect("bookBody.json");
-    String urlApi = "http://localhost:9090/api/v2/books";
+    String urlApi = "/api/v2/books";
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     Book book;
     List<Book> books = new ArrayList<>();
 
-    public BookControllerAPIV2() throws IOException {
+    public BookControllerV2Test() throws IOException {
     }
 
     @BeforeEach
@@ -56,13 +59,10 @@ public class BookControllerAPIV2 {
         books.add(book);
     }
 
-    @Autowired
-    private MockMvc mockMvc;
-
     @Test
     public void getBooksSuccess200Test() throws Exception {
         when(bookServiceJooqV2.getAll()).thenReturn(books);
-        MockHttpServletResponse response = this.mockMvc.perform(MockMvcRequestBuilders.get(urlApi)
+        MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(urlApi)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse();

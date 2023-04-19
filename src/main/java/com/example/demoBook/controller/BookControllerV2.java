@@ -12,7 +12,7 @@ import com.example.demoBook.service.BookServiceJooqV2;
 @RequestMapping(path = "/api/v2/books")
 public class BookControllerV2 {
 
-    BookServiceJooqV2 bookServiceJooqV2;
+    private final BookServiceJooqV2 bookServiceJooqV2;
 
     @Autowired
     public BookControllerV2(BookServiceJooqV2 bookServiceJooqV2) {
