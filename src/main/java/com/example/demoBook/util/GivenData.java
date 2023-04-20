@@ -10,13 +10,12 @@ public class GivenData {
     public GivenData() {}
 
     public static String dataExpect(String path) throws IOException {
-        String dataResponse = getData(path);
-        return dataResponse;
+        return getData(path);
     }
 
     public static String getData(String pathData) throws IOException {
         InputStream inputStream = GivenData.class.getClassLoader().getResourceAsStream(pathData);
-        String result = IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
-        return result;
+        assert inputStream != null;
+        return  IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
     }
 }
