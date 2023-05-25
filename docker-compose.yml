@@ -5,6 +5,10 @@ services:
     restart: always
     ports:
       - 8080:8080
+    environment:
+      URLHOST: ${HOST_NAME_DB}
+      USERNAME: ${USERNAME_DB}
+      PASSWORD: ${PASSWORD_DB}
     depends_on:
       - postgres_db_book
   postgres_db_book:
@@ -13,6 +17,6 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${PASSWORD_DB}
+      POSTGRES_USER: ${USERNAME_DB}
       POSTGRES_DB: book_db
