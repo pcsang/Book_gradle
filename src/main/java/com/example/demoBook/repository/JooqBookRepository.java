@@ -4,8 +4,10 @@ import static org.jooq.impl.DSL.field;
 import static org.jooq.impl.DSL.table;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -86,10 +88,21 @@ public class JooqBookRepository {
     }
 
     public List<Book> getBookBy_AuthorAndCategory(String author, String category) {
+        List<Condition> conditions = addCondition(author, category);
         List<Book> books =  dsl.select().from(Table_Book)
-                .where(field(AUTHOR_FIELD).equal(author))
-                .and(field(CATEGORY_FIELD).equal(category))
+                .where(conditions)
                 .fetchInto(Book.class);
         return books;
+    }
+
+    public List<Condition> addCondition(String author, String category) {
+        List<Condition> conditions = new ArrayList<>();
+        if (!ObjectUtils.isEmpty(author)) {
+            conditions.add(field(AUTHOR_FIELD).eq(author));
+        }
+        if (!ObjectUtils.isEmpty(category)) {
+            conditions.add(field(CATEGORY_FIELD).eq(category));
+        }
+        return conditions;
     }
 }

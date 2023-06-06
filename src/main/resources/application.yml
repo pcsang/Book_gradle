@@ -22,3 +22,10 @@ server:
     include-message: always
 #  port: 9090
 
+logging:
+  level:
+    org:
+      jooq:
+        tools:
+          LoggerListener: DEBUG
+
