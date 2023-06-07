@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
 @Slf4j
-public class ApiExceptionHandle {
+public class InternalCustomizationException {
 
     @ExceptionHandler(value = {ExceptionInput.class})
     public final ResponseEntity<ExceptionData> handleInput(ExceptionInput exceptionInput) {
