@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.assertj.core.api.Assertions;
@@ -54,7 +55,7 @@ public class BookControllerV2Test {
     public void setUp() {
         book = new Book(2, "10000 cau hoi vi sao?", "PhamSang",
                 "Khoahoc", "Sach kham pha",
-                LocalDate.of(2010, 04, 12),
+                LocalDate.of(2010, 4, 12),
                 LocalDate.of(2015, 8,11));
         books.add(book);
     }

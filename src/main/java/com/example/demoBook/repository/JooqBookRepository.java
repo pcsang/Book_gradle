@@ -31,14 +31,13 @@ public class JooqBookRepository {
     DSLContext dsl;
 
     public List<Book> getAllBook() {
-        List<Book> books = dsl.select()
-                .from("book")
+        return dsl.select()
+                .from(Table_Book)
                 .fetchInto(Book.class);
-        return books;
     }
 
     public Book save(Book book) {
-        dsl.insertInto(table("book"))
+        dsl.insertInto(table(Table_Book))
                 .set(field(ID_FIELD), book.getId())
                 .set(field(NAME_FIELD), book.getName())
                 .set(field(AUTHOR_FIELD), book.getAuthor())
@@ -56,31 +55,18 @@ public class JooqBookRepository {
 
     public Book getBookById(int id) {
         Book book = dsl.selectFrom(Table_Book).where(field(ID_FIELD).eq(id)).fetchOneInto(Book.class);
-        return ObjectUtils.isEmpty(book)? null : book;
+        return ObjectUtils.isEmpty(book) ? null : book;
     }
 
     public Book updateBook(int id, Book book) {
-        Book bookExist = getBookById(id);
-        String messenger = "Book with id "+id+" does not exists";
-        if(bookExist == null) {
-            throw new IllegalStateException(messenger);
-        }
-
-        String name = ObjectUtils.isEmpty(book.getName())? bookExist.getName() : book.getName();
-        String author = ObjectUtils.isEmpty(book.getAuthor())? bookExist.getAuthor() : book.getAuthor();
-        String category = ObjectUtils.isEmpty(book.getCategory())? bookExist.getCategory() : book.getCategory();
-        String description = ObjectUtils.isEmpty(book.getDesciption())
-                ?bookExist.getDesciption() : book.getDesciption();
-        LocalDate create = ObjectUtils.isEmpty(book.getCreateDate())? bookExist.getCreateDate() : book.getCreateDate();
-        LocalDate update = ObjectUtils.isEmpty(book.getUpdateDate())? bookExist.getUpdateDate() : book.getUpdateDate();
 
         dsl.update(table(Table_Book))
-                .set(field(NAME_FIELD), name)
-                .set(field(AUTHOR_FIELD), author)
-                .set(field(CATEGORY_FIELD), category)
-                .set(field(DESCIPTION_FIELD), description)
-                .set(field(CREATE_FIELD), create)
-                .set(field(UPDATE_FIELD), update)
+                .set(field(NAME_FIELD), book.getName())
+                .set(field(AUTHOR_FIELD), book.getAuthor())
+                .set(field(CATEGORY_FIELD), book.getCategory())
+                .set(field(DESCIPTION_FIELD), book.getDesciption())
+                .set(field(CREATE_FIELD), book.getCreateDate())
+                .set(field(UPDATE_FIELD), book.getUpdateDate())
                 .where(field(ID_FIELD).eq(book.getId()))
                 .execute();
 
@@ -89,10 +75,9 @@ public class JooqBookRepository {
 
     public List<Book> getBookBy_AuthorAndCategory(String author, String category) {
         List<Condition> conditions = addCondition(author, category);
-        List<Book> books =  dsl.select().from(Table_Book)
+        return dsl.select().from(Table_Book)
                 .where(conditions)
                 .fetchInto(Book.class);
-        return books;
     }
 
     public List<Condition> addCondition(String author, String category) {
