@@ -22,6 +22,9 @@ server:
     include-message: always
 #  port: 9090
 
+launch-darkly:
+  sdk-key: "sdk-49ae27fa-c02c-4f45-818d-10b05ac77f17"
+
 logging:
   level:
     org:

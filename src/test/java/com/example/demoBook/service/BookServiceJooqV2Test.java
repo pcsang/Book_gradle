@@ -6,13 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,9 +20,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.AssertionErrors;
+
+import com.launchdarkly.sdk.LDUser;
+import com.launchdarkly.sdk.server.LDClient;
 
 import com.example.demoBook.book.Book;
 import com.example.demoBook.exceptions.ExceptionInput;
@@ -35,6 +40,8 @@ public class BookServiceJooqV2Test {
     private final List<Book> booksExpect = new ArrayList<>();
     @Mock
     private JooqBookRepository jooqBookRepository;
+    @Autowired
+    private LDClient ldClient;
 
     @InjectMocks
     private BookServiceJooqV2 bookServiceJooqV2;
@@ -43,7 +50,7 @@ public class BookServiceJooqV2Test {
     public void setUp() {
         book = new Book(2, "10000 cau hoi vi sao?", "PhamSang",
                 "Khoahoc", "Sach kham pha",
-                LocalDate.of(2010, 04, 12),
+                LocalDate.of(2010, 4, 12),
                 LocalDate.of(2015, 8,11));
         booksExpect.add(book);
     }
@@ -51,6 +58,7 @@ public class BookServiceJooqV2Test {
     @Test
     public void getAllTest() {
         when(jooqBookRepository.getAllBook()).thenReturn(booksExpect);
+        when(ldClient.boolVariation(Mockito.eq("Test-flag-enable-api"), any(LDUser.class), Mockito.eq(false))).thenReturn(false);
         List<Book> booksActual = bookServiceJooqV2.getAll();
         AssertionErrors.assertEquals("Wrong ok", booksActual, booksExpect);
     }
@@ -58,6 +66,7 @@ public class BookServiceJooqV2Test {
     @Test
     public void getAllSuccessTest() {
         when(jooqBookRepository.getAllBook()).thenReturn(booksExpect);
+        when(ldClient.boolVariation(anyString(), any(LDUser.class), any())).thenReturn(false);
         List<Book> booksActual = bookServiceJooqV2.getAll();
         assertEquals(booksActual, booksExpect);
     }

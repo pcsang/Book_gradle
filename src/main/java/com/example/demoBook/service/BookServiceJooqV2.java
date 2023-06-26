@@ -6,11 +6,14 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.demoBook.book.Book;
 import com.example.demoBook.exceptions.ExceptionInput;
 import com.example.demoBook.messenger.Messenger;
+import com.launchdarkly.sdk.LDUser;
+import com.launchdarkly.sdk.server.LDClient;
 
 import com.example.demoBook.repository.JooqBookRepository;
 
@@ -18,13 +21,20 @@ import com.example.demoBook.repository.JooqBookRepository;
 public class BookServiceJooqV2 {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final JooqBookRepository jooqBookRepository;
+    private final LDClient ldClient;
 
     @Autowired
-    public BookServiceJooqV2(JooqBookRepository jooqBookRepository) {
+    public BookServiceJooqV2(JooqBookRepository jooqBookRepository, @Qualifier("ldClient") LDClient ldClient) {
         this.jooqBookRepository = jooqBookRepository;
+        this.ldClient = ldClient;
     }
 
     public List<Book> getAll() {
+        LDUser user = new LDUser.Builder("user-test").build();
+        boolean show = ldClient.boolVariation("get-book-all", user, false);
+        if(Boolean.TRUE.equals(show)) {
+            throw new IllegalStateException("API is not available");
+        }
         return jooqBookRepository.getAllBook();
     }
 
