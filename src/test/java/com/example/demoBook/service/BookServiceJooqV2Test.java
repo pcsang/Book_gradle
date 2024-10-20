@@ -12,7 +12,6 @@ import static org.mockito.Mockito.when;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -43,7 +42,7 @@ public class BookServiceJooqV2Test {
     public void setUp() {
         book = new Book(2, "10000 cau hoi vi sao?", "PhamSang",
                 "Khoahoc", "Sach kham pha",
-                LocalDate.of(2010, 04, 12),
+                LocalDate.of(2010, 4, 12),
                 LocalDate.of(2015, 8,11));
         booksExpect.add(book);
     }

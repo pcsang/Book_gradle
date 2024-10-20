@@ -4,13 +4,14 @@ import static org.jooq.impl.DSL.field;
 import static org.jooq.impl.DSL.table;
 
 import java.util.List;
-import javax.transaction.Transactional;
 
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demoBook.book.Book;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class BookServiceJooq {
@@ -19,10 +20,9 @@ public class BookServiceJooq {
     private DSLContext dslContext;
 
     public List<Book> getBooks() {
-        List<Book> books = dslContext.select()
+        return dslContext.select()
                 .from("book")
                 .fetchInto(Book.class);
-        return books;
     }
 
     public void addNewBook(Book book) {
