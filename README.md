@@ -23,3 +23,6 @@ git remote add origin git@github.com:pcsang/Book_gradle.git
 git branch -M master
 git push -u origin master
 ```
+
+## Swagger documents
+http://localhost:8080/swagger-ui/index.html#
