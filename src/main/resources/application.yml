@@ -29,3 +29,8 @@ logging:
         tools:
           LoggerListener: DEBUG
 
+pringdoc:
+  swagger-ui:
+    path: /swagger-ui-custom.html
+    operationsSorter: method
+
