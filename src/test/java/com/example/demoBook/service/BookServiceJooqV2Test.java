@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -80,7 +81,7 @@ public class BookServiceJooqV2Test {
     public void getBookByCategoryAndAuthorSuccessTest() {
         when(jooqBookRepository.getBookBy_AuthorAndCategory(any(String.class), any(String.class)))
                 .thenReturn(booksExpect);
-        List<Book> booksActual = bookServiceJooqV2.getBookAuthor_Category("pcsang", "Note");
+        List<Book> booksActual = bookServiceJooqV2.getBookAuthorCategory("pcsang", "Note");
         assertEquals(booksExpect, booksActual);
     }
 
@@ -88,7 +89,7 @@ public class BookServiceJooqV2Test {
     public void getBookByCategoryAndAuthorSuccessWithNullTest() {
         when(jooqBookRepository.getBookBy_AuthorAndCategory(any(String.class), any(String.class)))
                 .thenReturn(null);
-        List<Book> booksActual = bookServiceJooqV2.getBookAuthor_Category("pcsang", "Note");
+        List<Book> booksActual = bookServiceJooqV2.getBookAuthorCategory("pcsang", "Note");
         assertNull(booksActual);
     }
 
@@ -110,5 +111,12 @@ public class BookServiceJooqV2Test {
     public void deleteBookIdFailWithIdNotFound() {
         Throwable exception = assertThrows(ExceptionInput.class, () -> bookServiceJooqV2.deleteBook(1));
         assertEquals(String.format(NOT_FOUNT_ID_OF_BOOK, 1), exception.getMessage());
+    }
+
+    @Test
+    public void updateBookSuccess() {
+        when(bookServiceJooqV2.updateBook(eq(2), any(Book.class))).thenReturn(book);
+        var bookActual = bookServiceJooqV2.updateBook(2, book);
+        Assertions.assertEquals(2, bookActual.getId());
     }
 }

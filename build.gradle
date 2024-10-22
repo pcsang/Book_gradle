@@ -46,29 +46,51 @@ dependencies {
 
 	implementation 'commons-io:commons-io:2.7'
 
-
 }
 
+def excludeTest = [
+		'**/com/example/demoBook/book/**',
+		'**/com/example/demoBook/configuration/**',
+		'**/com/example/demoBook/exceptions/**',
+		'**/com/example/demoBook/messenger/**',
+		'**/com/example/demoBook/repository/**',
+		'**/BookServiceJooq.*',
+		'**/GivenData.*',
+		'**/DemoBookApplication.*'
+]
 test {
+	useJUnitPlatform()
 	finalizedBy jacocoTestReport // report is always generated after tests run
+	check.dependsOn(jacocoTestCoverageVerification) // enable checking code coverage for Unit test
 }
-jacocoTestReport {
-	dependsOn test // tests are required to run before generating the report
-}
+
 jacoco {
 	toolVersion = "0.8.7"
 	reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
 jacocoTestReport {
+	dependsOn test // tests are required to run before generating the report
 	reports {
 		xml.required = false
 		csv.required = false
 		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
 	}
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: excludeTest)
+		}))
+	}
+
 }
 
 jacocoTestCoverageVerification {
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: excludeTest)
+		}))
+	}
+
 	violationRules {
 		rule {
 			limit {
@@ -87,10 +109,6 @@ checkstyleMain {
 }
 checkstyleTest {
 	source ='src/test/java'
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
 }
 
 jar {
