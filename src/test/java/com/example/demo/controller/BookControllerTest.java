@@ -1,4 +1,4 @@
-package com.example.demoBook.controller;
+package com.example.demo.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
@@ -27,9 +27,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.example.demoBook.book.Book;
-import com.example.demoBook.service.BookServiceJooq;
-import com.example.demoBook.util.GivenData;
+import com.example.demo.model.Book;
+import com.example.demo.service.BookServiceJooq;
+import com.example.demo.util.GivenData;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc(addFilters = false)

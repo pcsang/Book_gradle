@@ -1,4 +1,4 @@
-package com.example.demoBook.messenger;
+package com.example.demo.constants;
 
 public final class Messenger {
     private Messenger() {}

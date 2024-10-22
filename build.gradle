@@ -49,11 +49,11 @@ dependencies {
 }
 
 def excludeTest = [
-		'**/com/example/demoBook/book/**',
-		'**/com/example/demoBook/configuration/**',
-		'**/com/example/demoBook/exceptions/**',
-		'**/com/example/demoBook/messenger/**',
-		'**/com/example/demoBook/repository/**',
+		'**/com/example/demo/model/**',
+		'**/com/example/demo/configuration/**',
+		'**/com/example/demo/exception/**',
+		'**/com/example/demo/constants/**',
+		'**/com/example/demo/repository/**',
 		'**/BookServiceJooq.*',
 		'**/GivenData.*',
 		'**/DemoBookApplication.*'
@@ -114,6 +114,6 @@ checkstyleTest {
 jar {
 	enabled = false
 	manifest {
-		attributes 'Main-Class': 'com.example.demoBook.DemoBookApplication'
+		attributes 'Main-Class': 'com.example.demo.DemoBookApplication'
 	}
 }

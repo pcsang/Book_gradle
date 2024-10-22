@@ -1,4 +1,4 @@
-package com.example.demoBook.exceptions;
+package com.example.demo.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

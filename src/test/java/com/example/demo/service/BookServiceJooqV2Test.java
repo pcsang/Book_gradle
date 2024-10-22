@@ -1,6 +1,6 @@
-package com.example.demoBook.service;
+package com.example.demo.service;
 
-import static com.example.demoBook.messenger.Messenger.NOT_FOUNT_ID_OF_BOOK;
+import static com.example.demo.constants.Messenger.NOT_FOUNT_ID_OF_BOOK;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -24,9 +24,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.AssertionErrors;
 
-import com.example.demoBook.book.Book;
-import com.example.demoBook.exceptions.ExceptionInput;
-import com.example.demoBook.repository.JooqBookRepository;
+import com.example.demo.exception.ExceptionInput;
+import com.example.demo.model.Book;
+import com.example.demo.repository.JooqBookRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)

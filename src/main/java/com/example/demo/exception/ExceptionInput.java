@@ -1,4 +1,4 @@
-package com.example.demoBook.exceptions;
+package com.example.demo.exception;
 
 public class ExceptionInput extends RuntimeException {
     public ExceptionInput(String message) {
