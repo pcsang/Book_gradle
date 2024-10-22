@@ -32,7 +32,7 @@ public class BookServiceJooqV2 {
         return book;
     }
 
-    public List<Book> getBookAuthor_Category(String author, String category) {
+    public List<Book> getBookAuthorCategory(String author, String category) {
         return jooqBookRepository.getBookBy_AuthorAndCategory(author, category);
     }
 
@@ -53,7 +53,7 @@ public class BookServiceJooqV2 {
     }
 
     public boolean isEmpty(Book book) {
-        return (book == null) ? true : false;
+        return book == null;
     }
 
 }

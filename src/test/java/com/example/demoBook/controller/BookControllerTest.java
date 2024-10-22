@@ -6,7 +6,6 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,17 +43,16 @@ public class BookControllerTest {
     @Autowired
     private BookController bookController;
 
-    String bookBody = GivenData.dataExpect("bookBody.json");
-    String urlApi = "/api/v1/books";
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    Book book;
-    List<Book> books = new ArrayList<>();
+    private final String bookBody = GivenData.dataExpect("bookBody.json");
+    private static final String URL_API = "/api/v1/books";
+    private Book book;
+    private final List<Book> books = new ArrayList<>();
 
     @BeforeEach
     public void setUp() {
         book = new Book(2, "10000 cau hoi vi sao?", "PhamSang",
                 "Khoahoc", "Sach kham pha",
-                LocalDate.of(2010, 04, 12),
+                LocalDate.of(2010, 4, 12),
                 LocalDate.of(2015, 8,11));
         books.add(book);
     }
@@ -65,7 +63,7 @@ public class BookControllerTest {
     @Test
     public void getBooksSuccessTest() throws Exception {
         when(bookServiceJooq.getBooks()).thenReturn(books);
-        MockHttpServletResponse response = this.mockMvc.perform(MockMvcRequestBuilders.get(urlApi)
+        MockHttpServletResponse response = this.mockMvc.perform(MockMvcRequestBuilders.get(URL_API)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse();
@@ -75,7 +73,7 @@ public class BookControllerTest {
     @Test
     public void getBookByIdSuccessTest() throws Exception {
         when(bookServiceJooq.getABookId(any(Integer.class))).thenReturn(book);
-        MockHttpServletResponse response = this.mockMvc.perform(MockMvcRequestBuilders.get(urlApi+"/1")
+        MockHttpServletResponse response = this.mockMvc.perform(MockMvcRequestBuilders.get(URL_API +"/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse();
@@ -86,7 +84,7 @@ public class BookControllerTest {
     public void getBookAuthorAndCategorySuccessTest() throws Exception {
         when(bookServiceJooq.getBookAuthor_Category(any(String.class), any(String.class))).thenReturn(books);
         MockHttpServletResponse response = this.mockMvc.perform(MockMvcRequestBuilders
-                        .get(urlApi+"/test?author=pcsang&category=Note")
+                        .get(URL_API +"/test?author=pcsang&category=Note")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn().getResponse();
@@ -97,7 +95,7 @@ public class BookControllerTest {
     void registerNewBookSuccessTest() throws Exception {
         doNothing().when(bookServiceJooq).addNewBook(any(Book.class));
         MockHttpServletResponse response = this.mockMvc.perform(MockMvcRequestBuilders
-                        .post(urlApi)
+                        .post(URL_API)
                         .with(SecurityMockMvcRequestPostProcessors.user("sang").roles("USER", "ADMIN"))
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -112,7 +110,7 @@ public class BookControllerTest {
     public void deleteBookSuccess200Test() throws Exception {
         doNothing().when(bookServiceJooq).deleteBook(any(Integer.class));
         MockHttpServletResponse response = this.mockMvc.perform(MockMvcRequestBuilders
-                        .delete(urlApi+"/1")
+                        .delete(URL_API +"/1")
                         .with(SecurityMockMvcRequestPostProcessors.user("sang").roles("USER", "ADMIN"))
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .accept(MediaType.APPLICATION_JSON))
@@ -124,7 +122,7 @@ public class BookControllerTest {
     public void updateBookSuccess200Test() throws Exception {
         when(bookServiceJooq.updateBook(any(Integer.class), any(String.class), any(String.class))).thenReturn(book);
         MockHttpServletResponse response = this.mockMvc.perform(MockMvcRequestBuilders
-                        .put(urlApi+"/1?authen=pcsang&category=Khoahoc")
+                        .put(URL_API +"/1?authen=pcsang&category=Khoahoc")
                         .with(SecurityMockMvcRequestPostProcessors.user("sang").roles("USER", "ADMIN"))
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .accept(MediaType.APPLICATION_JSON))
@@ -136,7 +134,7 @@ public class BookControllerTest {
     public void countBookSuccess200Test() throws Exception {
         when(bookServiceJooq.getCountBook_Author(any(String.class))).thenReturn(1);
         MockHttpServletResponse response = this.mockMvc.perform(MockMvcRequestBuilders
-                        .get(urlApi + "/countBook")
+                        .get(URL_API + "/countBook")
                         .with(SecurityMockMvcRequestPostProcessors.user("sang").roles("USER", "ADMIN"))
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .accept(MediaType.APPLICATION_JSON))

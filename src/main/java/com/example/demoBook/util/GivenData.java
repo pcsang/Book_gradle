@@ -16,6 +16,6 @@ public class GivenData {
     public static String getData(String pathData) throws IOException {
         InputStream inputStream = GivenData.class.getClassLoader().getResourceAsStream(pathData);
         assert inputStream != null;
-        return  IOUtils.toString(inputStream, StandardCharsets.UTF_8.name());
+        return  IOUtils.toString(inputStream, StandardCharsets.UTF_8);
     }
 }

@@ -32,7 +32,7 @@ public class BookControllerV2 {
     @GetMapping("/by")
     public List<Book> getBookAuthorAndCategory(@RequestParam(required = false) String author,
                                                @RequestParam(required = false) String category) {
-        return bookServiceJooqV2.getBookAuthor_Category(author, category);
+        return bookServiceJooqV2.getBookAuthorCategory(author, category);
     }
 
     @PostMapping
