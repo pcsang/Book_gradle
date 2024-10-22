@@ -1,15 +1,15 @@
-package com.example.demoBook.service;
+package com.example.demo.service;
 
-import static com.example.demoBook.messenger.Messenger.NOT_FOUNT_ID_OF_BOOK;
+import static com.example.demo.constants.Messenger.NOT_FOUNT_ID_OF_BOOK;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demoBook.book.Book;
-import com.example.demoBook.exceptions.ExceptionInput;
-import com.example.demoBook.repository.JooqBookRepository;
+import com.example.demo.exception.ExceptionInput;
+import com.example.demo.model.Book;
+import com.example.demo.repository.JooqBookRepository;
 
 @Service
 public class BookServiceJooqV2 {

@@ -1,4 +1,4 @@
-package com.example.demoBook.service;
+package com.example.demo.service;
 
 import static org.jooq.impl.DSL.field;
 import static org.jooq.impl.DSL.table;
@@ -9,7 +9,7 @@ import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demoBook.book.Book;
+import com.example.demo.model.Book;
 
 import jakarta.transaction.Transactional;
 

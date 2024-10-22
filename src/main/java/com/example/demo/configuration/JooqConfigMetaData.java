@@ -1,4 +1,4 @@
-package com.example.demoBook.configuration;
+package com.example.demo.configuration;
 
 import java.util.Properties;
 import javax.sql.DataSource;

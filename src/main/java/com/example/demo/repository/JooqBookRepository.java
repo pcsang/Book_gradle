@@ -1,4 +1,4 @@
-package com.example.demoBook.repository;
+package com.example.demo.repository;
 
 import static org.jooq.impl.DSL.field;
 import static org.jooq.impl.DSL.table;
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
-import com.example.demoBook.book.Book;
+import com.example.demo.model.Book;
 
 @Component
 public class JooqBookRepository {
